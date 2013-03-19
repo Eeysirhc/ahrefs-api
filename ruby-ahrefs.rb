@@ -1,10 +1,16 @@
 require 'open-uri'
 require 'json'
 
-puts "Target URL \t Total Backlinks \t Linking Domains \t Unique IPs \t .Com Links \t .Edu Links \t .Gov Links \n"
+output = File.open('ahrefs_results.csv','w')
+
+header = "Target URL \t Total Backlinks \t Linking Domains \t Unique IPs \t .Com Links \t .Edu Links \t .Gov Links \n"
+
+puts header
+output.write header
 
 key = "INSERT_YOUR_API_KEY_HERE"
 
+# Change .TXT to .CSV below if needed
 File.open("links.txt").each {|line|
  line = line.gsub("\n","")
  data = line.split("\t")
@@ -19,7 +25,10 @@ backlinks_results = JSON.parse(backlinks_data)
 domain_data = open(domain_count).read
 domain_results = JSON.parse(domain_data)
 
-puts "#{target}" + "\t" + backlinks_results["Result"]["Backlinks"].to_s + "\t" + domain_results["Result"]["Domains"].to_s + "\t" + domain_results["Result"]["Ips"].to_s + "\t" + domain_results["Result"]["ClassC"].to_s + "\t" + domain_results["Result"]["Edu"].to_s + "\t" + domain_results["Result"]["Gov"].to_s + "\n"
+results = "#{target}" + "\t" + backlinks_results["Result"]["Backlinks"].to_s + "\t" + domain_results["Result"]["Domains"].to_s + "\t" + domain_results["Result"]["Ips"].to_s + "\t" + domain_results["Result"]["ClassC"].to_s + "\t" + domain_results["Result"]["Edu"].to_s + "\t" + domain_results["Result"]["Gov"].to_s + "\n"
+
+puts results
+output.write results
 
 }
 
