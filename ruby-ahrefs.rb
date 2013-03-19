@@ -11,10 +11,9 @@ output.write header
 key = "INSERT_YOUR_API_KEY_HERE"
 
 # Change .TXT to .CSV below if needed
-File.open("links.txt").each {|line|
- line = line.gsub("\n","")
- data = line.split("\t")
- target = data.first.strip
+File.open("links.csv").each {|line|
+ data = line.split("\t").map {|value| value.strip}
+ target = data[0]
 
 backlink_count = "http://api.ahrefs.com/get_backlinks_count.php?target=#{target}&mode=exact&output=json&AhrefsKey=#{key}"
 domain_count = "http://api.ahrefs.com/get_ref_domains_ips_count.php?target=#{target}&mode=exact&output=json&AhrefsKey=#{key}"
