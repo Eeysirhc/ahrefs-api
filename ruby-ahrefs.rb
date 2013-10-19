@@ -10,7 +10,7 @@ output.write header
 
 key = "INSERT_YOUR_API_KEY_HERE"
 
-# Change .TXT to .CSV below if needed
+# Change .CSV to .TXT or other file below if needed
 File.open("links.csv").each {|line|
  data = line.split("\t").map {|value| value.strip}
  target = data[0]
